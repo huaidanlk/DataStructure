@@ -6,6 +6,8 @@ public class BinarySearchTree {
     int size;
     TreeNode root;
 
+
+
     public void add(int value) {
         if (root == null) {
             root = new TreeNode(value);
