@@ -1,5 +1,6 @@
 package binaryTree;
 
+import javax.swing.*;
 import java.util.LinkedList;
 
 public class BinarySearchTree {
@@ -75,6 +76,7 @@ public class BinarySearchTree {
                 height++;
             }
         }
+
         return height;
     }
 
@@ -132,5 +134,31 @@ public class BinarySearchTree {
 //            }
         }
         return true;
+    }
+
+    //前驱节点
+    public TreeNode predecessor(TreeNode node) {
+        if (node == null)
+            return node;
+        //从左子树中寻找节点   node.left.right
+        TreeNode temp = node.left;
+        if (temp != node) {
+            while (temp.right != null) {
+                temp = temp.right;
+            }
+            return temp;
+        }
+
+        //从父节点中寻找节点
+        while (node.parent != null && node.parent == node.parent.left) {
+            node = node.parent;
+        }
+        return node.parent;
+    }
+
+    //后继节点
+    public TreeNode successor(TreeNode node) {
+
+        return node;
     }
 }
