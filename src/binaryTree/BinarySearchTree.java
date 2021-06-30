@@ -7,20 +7,18 @@ public class BinarySearchTree {
     TreeNode root;
 
 
-
     public void add(int value) {
         if (root == null) {
-            root = new TreeNode(value);
+            root = new TreeNode(value, null);
             size++;
             return;
         }
-        TreeNode newNode = new TreeNode(value);
 
         TreeNode node = root;
         TreeNode parent = null;
         int cmp = 0;
         while (node != null) {
-            cmp = compare(node, newNode);
+            cmp = compare(node.value, value);
             parent = node;
             if (cmp > 0) {
                 node = node.left;
@@ -31,6 +29,8 @@ public class BinarySearchTree {
             }
         }
 
+        TreeNode newNode = new TreeNode(value, parent);
+
         if (cmp > 0) {
             parent.left = newNode;
         } else {
@@ -40,8 +40,8 @@ public class BinarySearchTree {
 
     }
 
-    public int compare(TreeNode node1, TreeNode node2) {
-        return node1.value - node2.value;
+    public int compare(int value1, int value2) {
+        return value1 - value2;
     }
 
     // 递归  树的高度
@@ -91,12 +91,46 @@ public class BinarySearchTree {
                 linkedList.offer(tempNode.left);
             if (tempNode.right != null)
                 linkedList.offer(tempNode.right);
-
         }
     }
 
     //判断二叉树是否为完全二叉树
-    public void isComplete(TreeNode node){
+    public boolean isComplete(TreeNode root) {
+        if (root == null)
+            return false;
+        LinkedList<TreeNode> linkedList = new LinkedList<>();
+        linkedList.offer(root);
+        boolean isLeaf = false;
+        while (!linkedList.isEmpty()) {
+            TreeNode tempNode = linkedList.poll();
+            if (isLeaf && !tempNode.isLeaf())
+                return false;
 
+            if (tempNode.left != null) {
+                linkedList.offer(tempNode.left);
+            } else if (tempNode.right != null)
+                //left == null && right != null
+                return false;
+
+            if (tempNode.right != null) {
+                linkedList.offer(tempNode.right);
+            } else
+                //right == null
+                //left == null || left != null
+                isLeaf = true;
+
+//
+//            if (tempNode.hasTwoChildren()) {
+//                linkedList.offer(tempNode.left);
+//                linkedList.offer(tempNode.right);
+//            } else if (tempNode.left == null && tempNode.right != null) {
+//                return false;
+//            } else {
+//                isLeaf = true;
+//                if (tempNode.left != null)
+//                    linkedList.offer(tempNode.left);
+//            }
+        }
+        return true;
     }
 }
