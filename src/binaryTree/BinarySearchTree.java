@@ -140,7 +140,7 @@ public class BinarySearchTree {
     public TreeNode predecessor(TreeNode node) {
         if (node == null)
             return node;
-        //从左子树中寻找节点   node.left.right
+        //从左子树中寻找节点   node.left.right.right.right
         TreeNode temp = node.left;
         if (temp != node) {
             while (temp.right != null) {
@@ -149,7 +149,7 @@ public class BinarySearchTree {
             return temp;
         }
 
-        //从父节点中寻找节点
+        //从父节点中寻找节点    node  = node.parent.right
         while (node.parent != null && node.parent == node.parent.left) {
             node = node.parent;
         }
