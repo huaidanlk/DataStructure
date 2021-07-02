@@ -158,12 +158,12 @@ public class BinarySearchTree {
 
     //后继节点
     public TreeNode successor(TreeNode node) {
-        if(node == null)
+        if (node == null)
             return node;
         //从右子树中寻找节点  node.right.left.left.left
         TreeNode temp = node.right;
-        if(temp !=null){
-            while (temp.left!=null){
+        if (temp != null) {
+            while (temp.left != null) {
                 temp = temp.left;
             }
             return temp;
@@ -171,10 +171,65 @@ public class BinarySearchTree {
 
         //从父节点中寻找节点   node = node.parent.left
 
-        while (node.parent!=null && node == node.parent.right){
-            node =node.parent;
+        while (node.parent != null && node == node.parent.right) {
+            node = node.parent;
         }
 
         return node.parent;
     }
+
+    //删除节点
+    public void remove(int element) {
+        TreeNode node = getNode(element);
+        if (node == null)
+            return;
+        size--;
+
+        //删除度为2的节点
+        if (node.hasTwoChildren()) {
+            TreeNode successorNode = successor(node);
+            node.value = successorNode.value;
+            node = successorNode;
+        }
+
+        TreeNode replacement = node.left != null ? node.left : node.right;
+
+        if (replacement != null) {//删除度为1的节点
+            // 注意更改 node 子节点的 parent
+            replacement.parent = node.parent;
+
+            if (node.parent == null) {  //node 是根节点
+                root = replacement;
+            } else if (node == node.parent.left) {
+                node.parent.left = replacement;
+            } else if (node == node.parent.right) {
+                node.parent.right = replacement;
+            }
+        } else if (node.parent == null)
+            root = null;
+        else { //删除度为0的节点
+            if (node == node.parent.left) {
+                node.parent.left = null;
+            } else if (node == node.parent.right) {
+                node.parent.right = null;
+            }
+        }
+    }
+
+    public TreeNode getNode(int element) {
+        if (root == null)
+            return null;
+        TreeNode temp = root;
+        while (temp != null) {
+            int cmp = compare(element, temp.value);
+            if (cmp > 0) {
+                temp = temp.right;
+            } else if (cmp < 0) {
+                temp = temp.left;
+            } else
+                return temp;
+        }
+        return null;
+    }
+
 }
