@@ -52,7 +52,7 @@ public class BinarySearchTree {
         return 1 + Math.max(height(node.left), height(node.right));
     }
 
-    //层序遍历
+    //层序遍历  树的高度
     public int height1(TreeNode node) {
         if (node == null)
             return 0;
@@ -95,6 +95,60 @@ public class BinarySearchTree {
                 linkedList.offer(tempNode.right);
         }
     }
+
+    //翻转二叉树
+    public void invertTree(TreeNode node) {
+        if (node == null)
+            return;
+
+        TreeNode temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+
+        invertTree(node.left);
+        invertTree(node.right);
+    }
+
+    //递归 前序遍历
+    public void preOrder0(TreeNode node) {
+        if (node == null)
+            return;
+        System.out.println(node.value);
+        inorder(node.left);
+        inorder(node.right);
+    }
+
+    //递归 前序遍历
+    public void inorder0(TreeNode node) {
+        if (node == null)
+            return;
+        inorder(node.left);
+        System.out.println(node.value);
+        inorder(node.right);
+    }
+
+    //递归 前序遍历
+    public void postOrder0(TreeNode node) {
+        if (node == null)
+            return;
+        inorder(node.left);
+        inorder(node.right);
+        System.out.println(node.value);
+    }
+
+
+    //非递归 前序遍历
+    public void inorder(TreeNode node) {
+        if (node == null)
+            return;
+
+    }
+
+
+    //非递归 中序遍历
+
+    //非递归 后序遍历
+
 
     //判断二叉树是否为完全二叉树
     public boolean isComplete(TreeNode root) {
