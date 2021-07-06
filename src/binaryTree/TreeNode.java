@@ -14,7 +14,7 @@ public class TreeNode {
     @Override
     public String toString() {
 
-        return String.valueOf(value);
+        return String.valueOf(value + "_");
     }
 
     boolean hasTwoChildren() {

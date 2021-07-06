@@ -2,6 +2,7 @@ package binaryTree;
 
 import javax.swing.*;
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class BinarySearchTree {
     int size;
@@ -113,41 +114,115 @@ public class BinarySearchTree {
     public void preOrder0(TreeNode node) {
         if (node == null)
             return;
-        System.out.println(node.value);
-        inorder(node.left);
-        inorder(node.right);
+        System.out.print(node.toString());
+        preOrder0(node.left);
+        preOrder0(node.right);
     }
 
     //递归 前序遍历
     public void inorder0(TreeNode node) {
         if (node == null)
             return;
-        inorder(node.left);
-        System.out.println(node.value);
-        inorder(node.right);
+        inorder0(node.left);
+        System.out.print(node.toString());
+        inorder0(node.right);
     }
 
     //递归 前序遍历
     public void postOrder0(TreeNode node) {
         if (node == null)
             return;
-        inorder(node.left);
-        inorder(node.right);
-        System.out.println(node.value);
+        postOrder0(node.left);
+        postOrder0(node.right);
+        System.out.print(node.toString());
     }
 
 
     //非递归 前序遍历
-    public void inorder(TreeNode node) {
+    public void preOrder(TreeNode node) {
         if (node == null)
             return;
+        Stack<TreeNode> stack = new Stack<>();
 
+//        while (true) {
+//            System.out.print(node.toString());
+//            if (node.right != null)
+//                stack.push(node.right);
+//            if (node.left != null)
+//                stack.push(node.left);
+//            if (stack.isEmpty())
+//                return;
+//            node = stack.pop();
+//        }
+
+        while (true) {
+            if (node != null) {
+                System.out.print(node.toString());
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                node = node.left;
+            } else if (stack.isEmpty())
+                return;
+            else
+                node = stack.pop();
+        }
     }
 
 
     //非递归 中序遍历
+    public void inOrder(TreeNode node) {
+        if (node == null)
+            return;
+        Stack<TreeNode> stack = new Stack<>();
+        while (true) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else if (stack.isEmpty()) {
+                return;
+            } else {
+                node = stack.pop();
+                System.out.print(node.toString());
+                node = node.right;
+            }
+        }
+    }
+
 
     //非递归 后序遍历
+    public void postOrder(TreeNode node) {
+        if (node == null)
+            return;
+        TreeNode popNode = null;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+        while (!stack.isEmpty()) {
+            TreeNode top = stack.peek();
+            if (top.isLeaf() || (popNode != null && top == popNode.parent)) {
+                popNode = stack.pop();
+                System.out.print(popNode.toString());
+            } else {
+                if (top.right != null)
+                    stack.push(top.right);
+                if (top.left != null)
+                    stack.push(top.left);
+            }
+
+
+//            if (node != null) {
+//                stack.push(node);
+//                node = node.left;
+//            } else if (stack.isEmpty()) {
+//                return;
+//            } else {
+//                node = stack.pop();
+//                System.out.print(node.toString());
+//                if (node.parent != null)
+//                    node = node.right;
+//            }
+        }
+    }
 
 
     //判断二叉树是否为完全二叉树
