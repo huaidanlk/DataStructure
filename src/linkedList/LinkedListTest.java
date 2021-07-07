@@ -6,8 +6,7 @@ public class LinkedListTest {
         ListNode head = new ListNode(0);
         ListNode temp = head;
         for (int i = 1; i < 5; i++) {
-            ListNode node = new ListNode(i);
-            temp.next = node;
+            temp.next = new ListNode(i);
             temp = temp.next;
         }
         printListNode(head);
@@ -17,7 +16,7 @@ public class LinkedListTest {
     }
 
 
-    //递归法
+    //递归法 翻转链表
     public static ListNode reversalList(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -45,4 +44,5 @@ public class LinkedListTest {
             head = head.next;
         }
     }
+    
 }
