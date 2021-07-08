@@ -3,7 +3,7 @@ package sort;
 public class SortTest {
     public static void main(String[] args) {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
-        BubbleSort(array);
+        SelectionSort(array);
         printArray(array);
     }
 
@@ -12,20 +12,35 @@ public class SortTest {
             System.out.print(array[i] + "_");
     }
 
+    public static int cmp(int a, int b) {
+        return a - b;
+    }
+
+    public static void swap(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    public static int[] SelectionSort(int[] array) {
+        for (int end = array.length - 1; end > 0; end--) {
+            int max = 0;
+            for (int begin = 1; begin <= end; begin++) {
+                if (cmp(array[max], array[begin]) < 0) {
+                    max = begin;
+                }
+            }
+            int temp = array[max];
+            array[max] = array[end];
+            array[end] = temp;
+
+        }
+
+        return array;
+    }
+
     public static int[] BubbleSort(int[] array) {
-        int length = array.length;
-
-//        for (int j = 0; j < length-1; j++) {
-//            for (int i = 1; i < length - j; i++) {
-//                if (array[i - 1] > array[i]) {
-//                    int temp = array[i];
-//                    array[i] = array[i - 1];
-//                    array[i - 1] = temp;
-//                }
-//            }
-//        }
-
-        for (int end = length; end >= 1; end--) {
+        for (int end = array.length; end >= 1; end--) {
             for (int begin = 1; begin < end; begin++) {
                 if (array[begin - 1] > array[begin]) {
                     int temp = array[begin];
