@@ -4,7 +4,8 @@ public class SortTest {
     public static void main(String[] args) {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
 //        SelectionSort(array);
-        HeapSort(array);
+//        HeapSort(array);
+        insertionSort(array);
         printArray(array);
     }
 
@@ -74,7 +75,8 @@ public class SortTest {
         return array;
     }
 
-    public static int heapSize ;
+    public static int heapSize;
+
     //堆排序
     public static int[] HeapSort(int[] array) {
         heapSize = array.length;
@@ -122,4 +124,17 @@ public class SortTest {
 
     }
 
+    //插入排序
+    public static void insertionSort(int[] array) {
+        for (int begin = 1; begin < array.length; begin++) {
+            int count = begin;
+            int e = array[begin];
+            while (count > 0 && cmp(array[count - 1], array[count]) > 0) {
+                // swap 替换为挪动减少交换次数
+                array[count] = array[count - 1];
+                count--;
+            }
+            array[count] = e;
+        }
+    }
 }
