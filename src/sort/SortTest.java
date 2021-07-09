@@ -3,7 +3,8 @@ package sort;
 public class SortTest {
     public static void main(String[] args) {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
-        SelectionSort(array);
+//        SelectionSort(array);
+        HeapSort(array);
         printArray(array);
     }
 
@@ -72,4 +73,53 @@ public class SortTest {
         }
         return array;
     }
+
+    public static int heapSize ;
+    //堆排序
+    public static int[] HeapSort(int[] array) {
+        heapSize = array.length;
+
+        //原地建堆 heapify
+        for (int i = (heapSize >> 1) - 1; i >= 0; i--) {
+            siftDown(i, array);
+        }
+
+        while (heapSize > 1) {
+            //交换对顶元素与尾部元素
+            heapSize--;
+            int temp = array[heapSize];
+            array[heapSize] = array[0];
+            array[0] = temp;
+
+            //对0位置siftDown
+            siftDown(0, array);
+        }
+
+
+        return array;
+    }
+
+    public static void siftDown(int index, int[] array) {
+
+        int e = array[index];
+
+        while (index < heapSize >> 1) {
+            //默认用左子节点
+            int childIndex = (index << 1) + 1;
+
+            int rightIndex = childIndex + 1;
+            if (rightIndex < heapSize) {
+                childIndex = array[childIndex] > array[rightIndex] ? childIndex : rightIndex;
+            }
+
+            if (array[childIndex] > e) {
+                array[index] = array[childIndex];
+                index = childIndex;
+            } else
+                break;
+        }
+        array[index] = e;
+
+    }
+
 }

@@ -101,7 +101,7 @@ public class BinaryHeap {
         //index 必须要有子节点   index < 第一个叶子节点的索引 ==  非叶子节点的数量 == (n/2)
         while (index < size >> 1) {
             //默认为左子节点的索引
-            int childIndex = index << 1 + 1;
+            int childIndex = (index << 1) + 1;
             int child = elements[childIndex];
 
             //右子节点
