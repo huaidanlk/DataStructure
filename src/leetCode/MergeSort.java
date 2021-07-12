@@ -62,25 +62,4 @@ public class MergeSort {
         }
         System.out.println(s);
     }
-
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
-
-    public ListNode reverseList(ListNode head) {
-        ListNode pre = null;
-        ListNode curr = head;
-        while (curr != null) {
-            ListNode temp = curr.next;
-            curr.next = pre;
-            pre = curr;
-            curr = temp;
-        }
-        return pre;
-    }
 }
