@@ -5,8 +5,14 @@ public class SortTest {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
 //        SelectionSort(array);
 //        HeapSort(array);
-        insertionSort(array);
+        insertionSort1(array);
         printArray(array);
+
+        System.out.println();
+        System.out.println(indexOfBinarySearch(array, 356));
+        System.out.println(indexOfBinarySearch(array, 89));
+        System.out.println(indexOfBinarySearch(array, 1));
+
     }
 
     public static void printArray(int[] array) {
@@ -124,17 +130,70 @@ public class SortTest {
 
     }
 
-    //插入排序
+    //插入排序 n^2
     public static void insertionSort(int[] array) {
         for (int begin = 1; begin < array.length; begin++) {
-            int count = begin;
+            int cur = begin;
             int e = array[begin];
-            while (count > 0 && cmp(array[count - 1], array[count]) > 0) {
+            while (cur > 0 && cmp(array[cur - 1], e) > 0) {
                 // swap 替换为挪动减少交换次数
-                array[count] = array[count - 1];
-                count--;
+                array[cur] = array[cur - 1];
+                cur--;
             }
-            array[count] = e;
+            array[cur] = e;
         }
+    }
+
+    //插入排序  （二分搜索来优化，减少比较次数 logn） 由于挪动还是 n 最终 n^2
+    public static void insertionSort1(int[] array) {
+        for (int begin = 1; begin < array.length; begin++) {
+            int insertIndex = indexOf(array, begin);
+
+            int cur = begin;
+            int e = array[begin];
+            for (int tail = begin; tail > insertIndex; tail--)
+                array[tail] = array[tail - 1];
+            array[insertIndex] = e;
+        }
+    }
+
+    // 利用二分查找 找到index位置元素待插入的位置
+    // 已经排好序的数组区间是 [0，index)
+    public static int indexOf(int[] array, int index) {
+        int begin = 0;
+
+        //通过 index 确定 end
+        int end = index;
+
+        int e = array[index];
+        // begin == end 即是最终的插入位置
+        while (begin < end) {
+            int mid = (begin + end) >> 1;
+            if (array[mid] < e) {
+                begin = mid + 1;
+            } else { // array[mid] >= e
+                end = mid;
+            }
+        }
+        return begin;
+    }
+
+
+    //二分搜索  前提有序 logn  [begin,end)
+    public static int indexOfBinarySearch(int[] array, int e) {
+        if (array == null || array.length == 0)
+            return -1;
+        int begin = 0;
+        int end = array.length;
+        while (begin < end) {
+            int mid = (begin + end) >> 1;
+            if (array[mid] > e) {
+                end = mid;
+            } else if (array[mid] < e) {
+                begin = mid + 1;
+            } else
+                return mid;
+        }
+        return -1;
     }
 }
