@@ -5,7 +5,9 @@ public class SortTest {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
 //        SelectionSort(array);
 //        HeapSort(array);
-        insertionSort1(array);
+//        insertionSort1(array);
+//        mergeSort(array);
+        quickSort(array);
         printArray(array);
 
         System.out.println();
@@ -197,8 +199,85 @@ public class SortTest {
         return -1;
     }
 
+    //归并排序
+    public static void mergeSort(int[] array) {
+        int[] leftArray = new int[array.length >> 1];
+        sort(0, array.length, array, leftArray);
+    }
 
-    public static void mergeSort(){
+    // [begin,end)
+    public static void sort(int begin, int end, int[] array, int[] leftArray) {
+        //至少两个元素
+        if (end - begin < 2)
+            return;
+        int mid = (end + begin) >> 1;
+        //对begin - end 范围的数据进行切割
+        sort(begin, mid, array, leftArray);
+        sort(mid, end, array, leftArray);
+        //对begin - end 合并
+        merge(begin, mid, end, array, leftArray);
+    }
+
+    public static void merge(int begin, int mid, int end, int[] array, int[] leftArray) {
+        int li = 0, le = mid - begin;
+        int ri = mid, re = end;
+        int ai = begin;
+
+        //复制左边的数组到 leftArray
+        for (int i = li; i < le; i++) {
+            leftArray[i] = array[begin + i];
+        }
+        while (li < le) {   //li = le 代表左边数组已经挪完 此时已经有序
+            if (ri < re && leftArray[li] > array[ri]) {    //ri = re 代表右边数组已经挪完 此时只需要挪动左边数组
+                array[ai++] = array[ri++];
+            } else {
+                array[ai++] = leftArray[li++];
+            }
+        }
 
     }
+
+    //快速排序
+    public static void quickSort(int[] array) {
+        sort(0, array.length, array);
+    }
+
+    // [begin,end)
+    public static void sort(int begin, int end, int[] array) {
+        if (end - begin < 2)
+            return;
+        int mid = pivotIndex(begin, end, array);
+        sort(begin, mid, array);
+        sort(mid + 1, end, array);
+    }
+
+    //构造 [begin,end) 范围的轴点元素
+    public static int pivotIndex(int begin, int end, int[] array) {
+        int pivot = array[begin];
+        end--;
+        while (begin < end) {
+            while (begin < end) {
+                if (pivot < array[end]) {  // 右边元素 > 轴点元素
+                    end--;
+                } else {  // 右边元素 <= 轴点元素
+                    array[begin] = array[end];
+                    begin++;
+                    break;
+                }
+            }
+            while (begin < end) {
+                if (pivot > array[begin]) {
+                    begin++;
+                } else {
+                    array[end] = array[begin];
+                    end--;
+                    break;
+                }
+            }
+        }
+        array[begin] = pivot;
+        return begin;
+    }
+
+
 }
