@@ -7,14 +7,15 @@ public class SortTest {
 //        HeapSort(array);
 //        insertionSort1(array);
 //        mergeSort(array);
-        quickSort(array);
-        printArray(array);
+//        quickSort(array);
+//        printArray(array);
 
         System.out.println();
-        System.out.println(indexOfBinarySearch(array, 356));
-        System.out.println(indexOfBinarySearch(array, 89));
-        System.out.println(indexOfBinarySearch(array, 1));
+//        System.out.println(indexOfBinarySearch(array, 356));
+//        System.out.println(indexOfBinarySearch(array, 89));
+//        System.out.println(indexOfBinarySearch(array, 1));
 
+        System.out.println(findMin(new int[]{3,4,5,1,2}));
     }
 
     public static void printArray(int[] array) {
@@ -278,6 +279,32 @@ public class SortTest {
         array[begin] = pivot;
         return begin;
     }
+
+    // 旋转升序数组最小值
+    public static int findMin(int[] nums) {
+        // int min = nums[0];
+        // for(int i = 1;i<nums.length;i++){
+        //     if(nums[i]<min){
+        //         min = nums[i];
+        //         break;
+        //     }
+        // }
+        // return min;
+
+        int begin = 0;
+        int end = nums.length-1;
+        while(begin<end){
+            int mid = begin + ((end - begin)>>1);
+            if(nums[mid] > nums[end]){ //在右边找
+                begin =mid +1;
+            }else{
+                end =mid;
+            }
+        }
+        return nums[begin];
+
+    }
+
 
 
 }
