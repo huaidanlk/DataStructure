@@ -55,6 +55,33 @@ public class Dp {
             // 4. 返回值
             return s.substring(begin,begin + maxLen);
         }
+
+
+        //最长上升子序列
+        public int lengthOfLIS(int[] nums) {
+            if(nums.length == 0)
+                return 0;
+            int length = nums.length;
+            //dp[i] 以i结尾的最大递增子序列
+            int[] dp = new int[nums.length];
+            for(int i =0 ;i<length;i++){
+                dp[i] = 1;
+            }
+
+            for(int i =1 ;i<length;i++){
+                int maxDp = dp[i];
+                for(int j = 0 ; j<i ;j++){
+                    if(nums[i]>nums[j])
+                        maxDp = Math.max(dp[j]+1,maxDp);
+                }
+                dp[i] = maxDp;
+            }
+            int max = dp[0];
+            for(int i =1 ;i<length;i++){
+                max = Math.max(max , dp[i]);
+            }
+            return max;
+        }
     }
 
 }
