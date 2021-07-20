@@ -14,8 +14,8 @@ public class SortTest {
 //        System.out.println(indexOfBinarySearch(array, 356));
 //        System.out.println(indexOfBinarySearch(array, 89));
 //        System.out.println(indexOfBinarySearch(array, 1));
-
-        System.out.println(findMin(new int[]{3,4,5,1,2}));
+        search(new int[]{4,5,6,7,0,1,2},0);
+//        System.out.println(findMin(new int[]{3,4,5,1,2}));
     }
 
     public static void printArray(int[] array) {
@@ -305,6 +305,47 @@ public class SortTest {
 
     }
 
+    public static int  search(int[] nums, int target) {
+        return  binarySearch(0,nums.length,nums,target);
 
+    }
+    public static int binarySearch(int begin ,int end ,int [] nums,int target){
+
+        int mid1 = (begin+end)>>1;
+        if(nums[mid1] == target)
+            return mid1;
+        //左边有序
+        if(nums[begin] < nums[mid1]){
+            int left = begin;
+            int right = mid1;
+            while(left<right){
+                int mid = (left+right)>>1;
+                if(nums[mid] == target)
+                    return mid ;
+                if(nums[mid] < target){
+                    left = mid+1;
+                }else if(target < nums[mid]  ) {
+                    right = mid;
+                }
+            }
+            return  binarySearch(mid1,end,nums,target);
+        }else if(nums[mid1] < nums[begin]){ //右边有序
+            int left = mid1;
+            int right = end;
+            while(left<right){
+                int mid = (left+right)>>1;
+                if(nums[mid] ==  target)
+                    return mid ;
+                if(nums[mid] < target){
+                    left = mid+1;
+                }else if(target < nums[mid]  ) {
+                    right = mid;
+                }
+            }
+            return binarySearch(begin,mid1,nums,target);
+        }
+        return -1;
+
+    }
 
 }
