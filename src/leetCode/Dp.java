@@ -107,6 +107,25 @@ public class Dp {
 
             return dp[char1.length][char2.length];
         }
+
+        //https://leetcode-cn.com/problems/longest-palindromic-subsequence/
+        //516. 最长回文子序列      s = "bbbab"   4
+        //dp的递推公式不是本质，本质是理解动态规划是带记事本的暴力循环
+        public int longestPalindromeSubseq(String s) {
+            int n = s.length();
+            int[][] f = new int[n][n];
+            for (int i = n - 1; i >= 0; i--) {
+                f[i][i] = 1;
+                for (int j = i + 1; j < n; j++) {
+                    if (s.charAt(i) == s.charAt(j)) {
+                        f[i][j] = f[i + 1][j - 1] + 2;
+                    } else {
+                        f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+                    }
+                }
+            }
+            return f[0][n - 1];
+        }
     }
 
 }

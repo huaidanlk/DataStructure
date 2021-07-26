@@ -1,5 +1,8 @@
 package sort;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class SortTest {
     public static void main(String[] args) {
         int[] array = new int[]{3, 1, 6, 3, 8, 6, 4, 89, 2, 78, 12, 356, 23, 45};
@@ -345,6 +348,20 @@ public class SortTest {
             return binarySearch(begin,mid1,nums,target);
         }
         return -1;
+
+    }
+
+    //回文数
+    public boolean isPalindrome(int x) {
+        if (x < 0 || (x%10== 0 && x !=0))
+            return false;
+        int z =0;
+        while (x>z){
+            z = z*10 + x%10;
+            x = x/10;
+        }
+
+        return  x == z || x == z/10;
 
     }
 
