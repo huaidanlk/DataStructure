@@ -19,7 +19,7 @@ public class SortTest {
 //        System.out.println(indexOfBinarySearch(array, 1));
 //        search(new int[]{4,5,6,7,0,1,2},0);
 //        System.out.println(findMin(new int[]{3,4,5,1,2}));
-        isPalindrome("A man, a plan, a canal: Panama");
+        isPalindrome("0P");
     }
 
     public static void printArray(int[] array) {
@@ -368,22 +368,39 @@ public class SortTest {
 
     //回文字符串  "A man, a plan, a canal: Panama"
     public static boolean isPalindrome(String s) {
-        String newString = "";
+        StringBuilder newString = new StringBuilder();
         for(int i =0;i<s.length();i++){
-            char temp = s.charAt(i);
-            if((temp >= 'a' && temp<='z') ||(temp >= 'A' && temp<='Z') )
-                newString +=temp;
+            char c = s.charAt(i);
+            if((c >= 'a' && c<='z') ||(c >= 'A' && c<='Z') ||  (c >= '0' && c <= '9')  )
+                newString.append(c);
         }
-        newString = newString.toLowerCase();
-        int n = newString.length();
+        String str = newString.toString().toLowerCase();
+        int n = str.length();
         int left =0;
         int right = n-1;
         while(left<right){
-            if(newString.charAt(left) != newString.charAt(right))
+            if(str.charAt(left) != str.charAt(right))
                 return false;
             left++;
             right--;
         }
         return true;
+    }
+
+    public boolean isPowerOfThree(int n) {
+        if(n == 0)
+            return false;
+        int temp =0;
+        while(true){
+
+            temp = n%3;
+            if(temp == 0)
+                return true;
+            else if(temp == n)
+                return false;
+            else
+                n = temp;
+
+        }
     }
 }
