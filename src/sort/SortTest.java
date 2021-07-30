@@ -17,8 +17,9 @@ public class SortTest {
 //        System.out.println(indexOfBinarySearch(array, 356));
 //        System.out.println(indexOfBinarySearch(array, 89));
 //        System.out.println(indexOfBinarySearch(array, 1));
-        search(new int[]{4,5,6,7,0,1,2},0);
+//        search(new int[]{4,5,6,7,0,1,2},0);
 //        System.out.println(findMin(new int[]{3,4,5,1,2}));
+        isPalindrome("A man, a plan, a canal: Panama");
     }
 
     public static void printArray(int[] array) {
@@ -365,4 +366,24 @@ public class SortTest {
 
     }
 
+    //回文字符串  "A man, a plan, a canal: Panama"
+    public static boolean isPalindrome(String s) {
+        String newString = "";
+        for(int i =0;i<s.length();i++){
+            char temp = s.charAt(i);
+            if((temp >= 'a' && temp<='z') ||(temp >= 'A' && temp<='Z') )
+                newString +=temp;
+        }
+        newString = newString.toLowerCase();
+        int n = newString.length();
+        int left =0;
+        int right = n-1;
+        while(left<right){
+            if(newString.charAt(left) != newString.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
 }
