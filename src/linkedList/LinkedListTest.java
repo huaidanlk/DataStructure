@@ -14,15 +14,23 @@ public class LinkedListTest {
 //        printListNode(reversalList(head));
 //        printListNode(reversalList1(head));
 
-        ListNode testCycleHead = new ListNode(3);
-        ListNode testCycleHead1 = new ListNode(2);
-        ListNode testCycleHead2 = new ListNode(0);
-        ListNode testCycleHead3 = new ListNode(-4);
-        testCycleHead.next = testCycleHead1;
-        testCycleHead1.next = testCycleHead2;
-        testCycleHead2.next = testCycleHead3;
-        testCycleHead3.next = testCycleHead1;
-        System.out.println(detectCycle(testCycleHead).val);
+//        ListNode testCycleHead = new ListNode(3);
+//        ListNode testCycleHead1 = new ListNode(2);
+//        ListNode testCycleHead2 = new ListNode(0);
+//        ListNode testCycleHead3 = new ListNode(-4);
+//        testCycleHead.next = testCycleHead1;
+//        testCycleHead1.next = testCycleHead2;
+//        testCycleHead2.next = testCycleHead3;
+//        testCycleHead3.next = testCycleHead1;
+//        System.out.println(detectCycle(testCycleHead).val);
+        ListNode node1= new ListNode(4);
+        ListNode node2= new ListNode(2);
+        ListNode node3= new ListNode(1);
+        ListNode node4= new ListNode(3);
+        node1.next= node2;
+        node2.next=node3;
+        node3.next =node4;
+        System.out.println(insertionSortList(node1));
     }
 
 
@@ -132,4 +140,27 @@ public class LinkedListTest {
         }
     }
 
+    public static ListNode insertionSortList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode lastSorted = head, curr = head.next;
+        while (curr != null) {
+            if (lastSorted.val <= curr.val) {
+                lastSorted = lastSorted.next;
+            } else {
+                ListNode prev = dummyHead;
+                while (prev.next.val <= curr.val) {
+                    prev = prev.next;
+                }
+                lastSorted.next = curr.next;
+                curr.next = prev.next;
+                prev.next = curr;
+            }
+            curr = lastSorted.next;
+        }
+        return dummyHead.next;
+    }
 }
