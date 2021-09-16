@@ -1,4 +1,4 @@
-package reflect;
+package myJava.reflect;
 
 public class Person {
     public int age;

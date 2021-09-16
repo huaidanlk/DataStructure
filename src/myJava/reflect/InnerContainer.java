@@ -1,4 +1,4 @@
-package reflect;
+package myJava.reflect;
 
 public class InnerContainer {
     public InnerContainer() { }

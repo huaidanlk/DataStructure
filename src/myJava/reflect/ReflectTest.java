@@ -1,4 +1,4 @@
-package reflect;
+package myJava.reflect;
 
 import java.lang.reflect.*;
 
@@ -16,7 +16,7 @@ public class ReflectTest {
 
     public static void getClassField() {
         try {
-            Class<?> clazz = Class.forName("reflect.Student");
+            Class<?> clazz = Class.forName("myJava.reflect.Student");
 
             System.out.println("------------自身/父类 public 属性-----------------");
 
@@ -50,7 +50,7 @@ public class ReflectTest {
 
     public static void getClassMethod() {
         try {
-            Class<?> clazz = Class.forName("reflect.Person");
+            Class<?> clazz = Class.forName("myJava.reflect.Person");
             System.out.println("------------自身/父类 public 方法-----------------");
             Method[] methods = clazz.getDeclaredMethods();
             for (int i = 0; i < methods.length; i++) {
@@ -79,7 +79,7 @@ public class ReflectTest {
 
     public static void getClassConstructor() {
         try {
-            Class<?> clazz = Class.forName("reflect.Person");
+            Class<?> clazz = Class.forName("myJava.reflect.Person");
             Person person = (Person) clazz.newInstance();
             person.setAge(11);
             person.setName("Alex");
@@ -120,7 +120,7 @@ public class ReflectTest {
 
     public static void invokeMethod() {
         try {
-            Class<?> clazz = Class.forName("reflect.Person");
+            Class<?> clazz = Class.forName("myJava.reflect.Person");
             Method method = clazz.getMethod("public_prin");
             method.invoke(clazz.newInstance());
 
@@ -144,7 +144,7 @@ public class ReflectTest {
 
     public static void invokeField() {
         try {
-            Class<?> clazz = Class.forName("reflect.Person");
+            Class<?> clazz = Class.forName("myJava.reflect.Person");
             Class<?> clazz1 = Person.class;
             Person person = new Person();
             Class<?> clazz2 = person.getClass();
@@ -199,7 +199,7 @@ public class ReflectTest {
 
     public static void funMethod() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
 //        Class<Person> clazz = Person.class;
-        Class<?> clazz = Class.forName("com.example.okhttptest.myJava.reflect.Person");
+        Class<?> clazz = Class.forName("com.example.okhttptest.myJava.java.reflect.Person");
         Object obj = clazz.newInstance();
 
         //1.共有 无参方法
