@@ -12,8 +12,14 @@ public class ProxyTest {
         HelloInterface hello = new Hello();
         InvocationHandler handler = new ProxyHandler(hello);
 
+        WorldInterface world = new World();
+        InvocationHandler handler1 = new ProxyHandler(world);
+
         HelloInterface proxyHello = (HelloInterface) Proxy.newProxyInstance(hello.getClass().getClassLoader(), hello.getClass().getInterfaces(), handler);
+        WorldInterface proxyWorld = (WorldInterface) Proxy.newProxyInstance(world.getClass().getClassLoader(), world.getClass().getInterfaces(), handler1);
 
         proxyHello.sayHello();
+        proxyWorld.sayWorld();
+
     }
 }
